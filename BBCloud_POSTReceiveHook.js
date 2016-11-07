@@ -35,11 +35,10 @@ const processors = {
             message: request.content.push.changes[0].new.target.message
         };
         const links = {
-            self: request.content.push.changes[0].new.target.links.self.href
+            self: request.content.push.changes[0].new.links.html.href
         };
         let text = '';
         text += author.displayname + ' (@' + author.username + ') pushed changes:\n';
-        text += '=> ' + repository.name + '/' + repository.branch + '\n';
         text += repository.message + '\n';
         const attachment = {
             author_icon: 'http://plainicon.com/dboard/userprod/2800_a1826/prod_thumb/plainicon.com-50220-512px-3ba.png',
