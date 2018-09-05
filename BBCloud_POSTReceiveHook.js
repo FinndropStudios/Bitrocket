@@ -173,8 +173,8 @@ const processors = {
 
     pullrequest_rejected(request) {
         const author = {
-            username: request.content.pullrequest.author.username,
-            displayname: request.content.pullrequest.author.display_name
+            username: request.content.pullrequest.closed_by.username,
+            displayname: request.content.pullrequest.closed_by.display_name
         };
         const pullrequest = {
             sourcerepo: request.content.pullrequest.source.repository.name,
@@ -262,8 +262,8 @@ const processors = {
 
     pullrequest_fulfilled(request) {
         const author = {
-            username: request.content.pullrequest.author.username,
-            displayname: request.content.pullrequest.author.display_name
+            username: request.content.pullrequest.closed_by.username,
+            displayname: request.content.pullrequest.closed_by.display_name
         };
         const pullrequest = {
             sourcerepo: request.content.pullrequest.source.repository.name,
@@ -273,6 +273,7 @@ const processors = {
             title: request.content.pullrequest.title,
             description: request.content.pullrequest.description
         };
+
         let text = '';
         text += author.displayname + ' (@' + author.username + ') merged a pull request:\n';
         text += '`' + pullrequest.sourcerepo + '/' + pullrequest.sourcebranch + '` => `' + pullrequest.destinationrepo + '/' + pullrequest.destinationbranch + '`\n\n';
@@ -304,6 +305,7 @@ const processors = {
             title: request.content.pullrequest.title,
             description: request.content.pullrequest.description
         };
+
         let text = '';
         text += author.displayname + ' (@' + author.username + ') updated a pull request:\n';
         text += pullrequest.sourcebranch + ' => ' + pullrequest.destinationbranch + '\n';
@@ -326,14 +328,15 @@ const processors = {
 
     pullrequest_comment_created(request) {
         const author = {
-            username: request.content.pullrequest.user.username,
-            displayname: request.content.pullrequest.user.display_name
+            username: request.content.comment.user.username,
+            displayname: request.content.comment.user.display_name
         };
         const comment = {
-            text: request.content.pullrequest.content.raw,
-            id: request.content.pullrequest.id,
-            link: request.content.pullrequest.links.self.href
+            text: request.content.comment.content.raw,
+            id: request.content.comment.id,
+            link: request.content.comment.links.html.href
         };
+
         let text = '';
         text += author.displayname + ' (@' + author.username + ') commented on a pull request:\n';
         text += 'Comment:\n';
@@ -354,14 +357,15 @@ const processors = {
 
     pullrequest_comment_deleted(request) {
         const author = {
-            username: request.content.pullrequest.user.username,
-            displayname: request.content.pullrequest.user.display_name
+            username: request.content.comment.user.username,
+            displayname: request.content.comment.user.display_name
         };
         const comment = {
-            text: request.content.pullrequest.content.raw,
-            id: request.content.pullrequest.id,
-            link: request.content.pullrequest.links.self.href
+            text: request.content.comment.content.raw,
+            id: request.content.comment.id,
+            link: request.content.comment.links.html.href
         };
+
         let text = '';
         text += author.displayname + ' (@' + author.username + ') deleted a comment on a pull request:\n';
         text += 'Comment:\n';
@@ -382,14 +386,15 @@ const processors = {
 
     pullrequest_comment_updated(request) {
         const author = {
-            username: request.content.pullrequest.user.username,
-            displayname: request.content.pullrequest.user.display_name
+            username: request.content.comment.user.username,
+            displayname: request.content.comment.user.display_name
         };
         const comment = {
-            text: request.content.pullrequest.content.raw,
-            id: request.content.pullrequest.id,
-            link: request.content.pullrequest.links.self.href
+            text: request.content.comment.content.raw,
+            id: request.content.comment.id,
+            link: request.content.comment.links.html.href
         };
+
         let text = '';
         text += author.displayname + ' (@' + author.username + ') updated a comment on a pull request:\n';
         text += 'Comment:\n';
@@ -421,20 +426,23 @@ class Script {
             }
         };
 
-        let keys = Object.keys(request.content);
-        for (let key of keys) {
-            if (showNotifications[key] === true) {
-                result = processors[key](request);
-            }
-        }
-
-        if (result.error && request.headers['x-event-key']) {
+        if (request.headers['x-event-key']) {
             const key = request.headers['x-event-key'].replace(':', '_');
 
             if (showNotifications[key] === true) {
                 result = processors[key](request);
             }
         }
+
+        if (result.error) {
+            let keys = Object.keys(request.content);
+            for (let key of keys) {
+                if (showNotifications[key] === true) {
+                    result = processors[key](request);
+                }
+            }
+        }
+
         return result;
     }
 }
