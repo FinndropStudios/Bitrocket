@@ -5,11 +5,11 @@ const config = {
 };
 
 const showLinks = {
-    decline: true,
-    approve: true,
-    merge: true,
-    commits: true,
-    comments: true
+    decline: false,
+    approve: false,
+    merge: false,
+    commits: false,
+    comments: false
 };
 
 const showNotifications = {
@@ -126,7 +126,7 @@ const processors = {
             description: request.content.pullrequest.description
         };
         const links = {
-            self: request.content.pullrequest.links.self.href,
+            self: request.content.pullrequest.links.html.href,
             decline: request.content.pullrequest.links.decline.href,
             approve: request.content.pullrequest.links.approve.href,
             merge: request.content.pullrequest.links.merge.href,
