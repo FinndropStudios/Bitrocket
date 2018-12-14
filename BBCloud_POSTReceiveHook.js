@@ -49,7 +49,8 @@ function create_attachement(author, text){
         author_name: author.displayname,
         author_link: author.link,
         author_icon: author.avatar,
-        text: text
+        text: text,
+        ts: new Date().toISOString()
     };
     return attachment;
 }
@@ -183,7 +184,8 @@ const processors = {
         }
         const attachment = {
             author_name: '#' + pullrequest.id + ' - ' + pullrequest.title,
-            author_link: links.self
+            author_link: links.self,
+            ts: new Date().toISOString()
         };
         return {
             content: {
@@ -214,7 +216,8 @@ const processors = {
         text += 'Reason:\n';
         text += pullrequest.reason + '\n';
         const attachment = {
-            author_name: 'DECLINED: ' + pullrequest.title
+            author_name: 'DECLINED: ' + pullrequest.title,
+            ts: new Date().toISOString()
         };
         return {
             content: {
@@ -243,7 +246,8 @@ const processors = {
         text += author.displayname + ' (@' + author.username + ') approved a pull request:\n';
         text += '`' + pullrequest.sourcerepo + '/' + pullrequest.sourcebranch + '` => `' + pullrequest.destinationrepo + '/' + pullrequest.destinationbranch + '`\n\n';
         const attachment = {
-            author_name: 'APPROVED: ' + pullrequest.title
+            author_name: 'APPROVED: ' + pullrequest.title,
+            ts: new Date().toISOString()
         };
         return {
             content: {
@@ -272,7 +276,8 @@ const processors = {
         text += author.displayname + ' (@' + author.username + ') unapproved a pull request:\n';
         text += '`' + pullrequest.sourcerepo + '/' + pullrequest.sourcebranch + '` => `' + pullrequest.destinationrepo + '/' + pullrequest.destinationbranch + '`\n\n';
         const attachment = {
-            author_name: 'UNAPPROVED: ' + pullrequest.title
+            author_name: 'UNAPPROVED: ' + pullrequest.title,
+            ts: new Date().toISOString()
         };
         return {
             content: {
@@ -305,7 +310,8 @@ const processors = {
             text += pullrequest.description + '\n';
         }
         const attachment = {
-            author_name: 'MERGED: ' + pullrequest.title
+            author_name: 'MERGED: ' + pullrequest.title,
+            ts: new Date().toISOString()
         };
         return {
             content: {
@@ -336,7 +342,8 @@ const processors = {
             text += pullrequest.description + '\n';
         }
         const attachment = {
-            author_name: 'UPDATED: ' + pullrequest.title
+            author_name: 'UPDATED: ' + pullrequest.title,
+            ts: new Date().toISOString()
         };
         return {
             content: {
@@ -364,7 +371,8 @@ const processors = {
         text += comment.text + '\n';
         const attachment = {
             author_name: '#' + comment.id,
-            author_link: comment.link
+            author_link: comment.link,
+            ts: new Date().toISOString()
         };
         return {
             content: {
@@ -392,7 +400,8 @@ const processors = {
         text += comment.text + '\n';
         const attachment = {
             author_name: '#' + comment.id,
-            author_link: comment.link
+            author_link: comment.link,
+            ts: new Date().toISOString()
         };
         return {
             content: {
@@ -420,7 +429,8 @@ const processors = {
         text += comment.text + '\n';
         const attachment = {
             author_name: '#' + comment.id,
-            author_link: comment.link
+            author_link: comment.link,
+            ts: new Date().toISOString()
         };
         return {
             content: {

@@ -13,7 +13,8 @@ const bitBucketUpdate = (request, i) => {
         title: 'Repository "' + request.content.repository.name + '" in project "' + request.content.repository.project.name + '" updated',
         title_link: config['bitBucketUrl'].replace(/\/$/, '') + '/projects/' + request.content.repository.project.key + '/repos/' + request.content.repository.slug + '/browse/',
         text: username + ' updated ' + request.content.changesets.values[i].changes.size + ((request.content.changesets.values[i].changes.size > 1) ? ' files' : ' file') + ' on branch ' + request.content.refChanges[i].refId + '` with message:\n"' + request.content.changesets.values[i].toCommit.message + '"',
-        color: ((config['color'] != '') ? '#' + config['color'].replace('#', '') : '#225159')
+        color: ((config['color'] != '') ? '#' + config['color'].replace('#', '') : '#225159'),
+        ts: new Date().toISOString()
     };
     return {
         content: {

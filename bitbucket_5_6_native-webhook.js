@@ -43,7 +43,8 @@ function get_basic_info(content) {
 function create_attachement(author, text) {
     const attachment = {
         author_name: '@'+author.username,
-        text: text
+        text: text,
+        ts: new Date().toISOString()
     };
     return attachment;
 }
@@ -181,7 +182,8 @@ const processors = {
         text += pullRequest.description + '\n';
         const attachment = {
             author_name: '#' + pullRequest.id + ' - ' + pullRequest.title,
-            author_link: links.self
+            author_link: links.self,
+            ts: new Date().toISOString()
         };
         return {
             content: {
@@ -215,7 +217,8 @@ const processors = {
         text += '`' + pullrequest.sourcerepo + '/' + pullrequest.sourcebranch + '` => `' + pullrequest.destrepo + '/' + pullrequest.destinationbranch + '`\n\n';
         const attachment = {
             author_name: 'APPROVED: ' + '#' + pullrequest.id + ' - ' + pullrequest.title,
-            author_link: config.bitbucketUrl + '/projects/' + pullrequest.projectKey + '/repos/' + pullrequest.sourcerepo + '/pull-requests/' + pullrequest.id + '/overview'
+            author_link: config.bitbucketUrl + '/projects/' + pullrequest.projectKey + '/repos/' + pullrequest.sourcerepo + '/pull-requests/' + pullrequest.id + '/overview',
+            ts: new Date().toISOString()
         };
         return {
             content: {
@@ -249,7 +252,8 @@ const processors = {
         text += '`' + pullrequest.sourcerepo + '/' + pullrequest.sourcebranch + '` => `' + pullrequest.destrepo + '/' + pullrequest.destinationbranch + '`\n\n';
         const attachment = {
             author_name: 'UNAPPROVED: ' +  '#' + pullrequest.id + ' - ' + pullrequest.title,
-            author_link: config.bitbucketUrl + '/projects/' + pullrequest.projectKey + '/repos/' + pullrequest.sourcerepo + '/pull-requests/' + pullrequest.id + '/overview'
+            author_link: config.bitbucketUrl + '/projects/' + pullrequest.projectKey + '/repos/' + pullrequest.sourcerepo + '/pull-requests/' + pullrequest.id + '/overview',
+            ts: new Date().toISOString()
         };
         return {
             content: {
@@ -282,7 +286,8 @@ const processors = {
         text += '`' + pullrequest.sourcerepo + '/' + pullrequest.sourcebranch + '` => `' + pullrequest.destrepo + '/' + pullrequest.destinationbranch + '`\n\n';
         const attachment = {
             author_name: 'NEEDS WORK: ' +  '#' + pullrequest.id + ' - ' + pullrequest.title,
-            author_link: config.bitbucketUrl + '/projects/' + pullrequest.projectKey + '/repos/' + pullrequest.sourcerepo + '/pull-requests/' + pullrequest.id + '/overview'
+            author_link: config.bitbucketUrl + '/projects/' + pullrequest.projectKey + '/repos/' + pullrequest.sourcerepo + '/pull-requests/' + pullrequest.id + '/overview',
+            ts: new Date().toISOString()
         };
         return {
             content: {
@@ -315,7 +320,8 @@ const processors = {
         text += '`' + pullrequest.sourcerepo + '/' + pullrequest.sourcebranch + '` => `' + pullrequest.destrepo + '/' + pullrequest.destinationbranch + '`\n\n';
         const attachment = {
             author_name: 'MERGED: ' +  '#' + pullrequest.id + ' - ' + pullrequest.title,
-            author_link: config.bitbucketUrl + '/projects/' + pullrequest.projectKey + '/repos/' + pullrequest.sourcerepo + '/pull-requests/' + pullrequest.id + '/overview'
+            author_link: config.bitbucketUrl + '/projects/' + pullrequest.projectKey + '/repos/' + pullrequest.sourcerepo + '/pull-requests/' + pullrequest.id + '/overview',
+            ts: new Date().toISOString()
         };
         return {
             content: {
@@ -347,7 +353,8 @@ const processors = {
         text += '`' + pullrequest.sourcerepo + '/' + pullrequest.sourcebranch + '` => `' + pullrequest.destrepo + '/' + pullrequest.destinationbranch + '`\n\n';
         const attachment = {
             author_name: 'DECLINED: ' +  '#' + pullrequest.id + ' - ' + pullrequest.title,
-            author_link: config.bitbucketUrl + '/projects/' + pullrequest.projectKey + '/repos/' + pullrequest.sourcerepo + '/pull-requests/' + pullrequest.id + '/overview'
+            author_link: config.bitbucketUrl + '/projects/' + pullrequest.projectKey + '/repos/' + pullrequest.sourcerepo + '/pull-requests/' + pullrequest.id + '/overview',
+            ts: new Date().toISOString()
         };
         return {
             content: {
@@ -380,7 +387,8 @@ const processors = {
         text += '`' + pullrequest.sourcerepo + '/' + pullrequest.sourcebranch + '` => `' + pullrequest.destrepo + '/' + pullrequest.destinationbranch + '`\n\n';
         const attachment = {
             author_name: 'DELETED: ' +  '#' + pullrequest.id + ' - ' + pullrequest.title,
-            author_link: config.bitbucketUrl + '/projects/' + pullrequest.projectKey + '/repos/' + pullrequest.sourcerepo + '/pull-requests/' + pullrequest.id + '/overview'
+            author_link: config.bitbucketUrl + '/projects/' + pullrequest.projectKey + '/repos/' + pullrequest.sourcerepo + '/pull-requests/' + pullrequest.id + '/overview',
+            ts: new Date().toISOString()
         };
         return {
             content: {
@@ -410,7 +418,8 @@ const processors = {
         text += '_' + comment.text + '_\n';
         const attachment = {
             author_name: content.pullRequest.title,
-            author_link: config.bitbucketUrl + '/projects/' + pullRequest.projectKey + '/repos/' + pullRequest.repo + '/pull-requests/' + pullRequest.id + '/overview'
+            author_link: config.bitbucketUrl + '/projects/' + pullRequest.projectKey + '/repos/' + pullRequest.repo + '/pull-requests/' + pullRequest.id + '/overview',
+            ts: new Date().toISOString()
         };
         return {
             content: {
@@ -440,7 +449,8 @@ const processors = {
         text += '~' + comment.text + '~\n';
         const attachment = {
             author_name: content.pullRequest.title,
-            author_link: config.bitbucketUrl + '/projects/' + pullRequest.projectKey + '/repos/' + pullRequest.repo + '/pull-requests/' + pullRequest.id + '/overview'
+            author_link: config.bitbucketUrl + '/projects/' + pullRequest.projectKey + '/repos/' + pullRequest.repo + '/pull-requests/' + pullRequest.id + '/overview',
+            ts: new Date().toISOString()
         };
         return {
             content: {
@@ -472,7 +482,8 @@ const processors = {
         text += '_' + comment.text + '_\n';
         const attachment = {
             author_name: content.pullRequest.title,
-            author_link: config.bitbucketUrl + '/projects/' + pullRequest.projectKey + '/repos/' + pullRequest.repo + '/pull-requests/' + pullRequest.id + '/overview'
+            author_link: config.bitbucketUrl + '/projects/' + pullRequest.projectKey + '/repos/' + pullRequest.repo + '/pull-requests/' + pullRequest.id + '/overview',
+            ts: new Date().toISOString()
         };
         return {
             content: {
