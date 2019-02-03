@@ -564,7 +564,7 @@ class Script {
                 try {
                     result = processors[key](request);
                 } catch (e) {
-                    result.message = e.message;
+                    result.error.message = e.message;
                     return result; 
                 }
             }
