@@ -64,14 +64,32 @@ const processors = {
         const commits = request.content.push.changes[0].commits;
 
         let text = '';
+      	let date = '';
         text += "On repository " + "[" + info.repository.name + "]" + "(" + info.repository.link + ")" + ": " + "\n";
-        for (let commit of commits) {
-            text += "*Pushed* " + "[" + commit.hash.toString().substring(0,6) + "]" + "(" + commit.links.html.href + ")" + ": " + commit.message;
+        if (commits === undefined) {
+          let push = request.content.push.changes[0]
+          if (push.new !== null) {
+            let hash = "[" + push.new.target.hash.toString().substring(0,6) + "](" + push.new.target.links.html.href + ")";
+            text += "*Created* new tag " + push.new.name + " @ " + hash + "\n";
+            text += hash + ": " + push.new.target.message;
+            date = push.new.date;
+          }
+          if (push.old !== null) {
+            let hash = "[" + push.old.target.hash.toString().substring(0,6) + "](" + push.old.target.links.html.href + ")";
+           	text += "*Deleted* tag " + push.old.name + " (was " + hash + ")" + "\n";
+            text += hash + ": " + push.old.target.message;
+            date = push.old.date;
+          }
+        } else {
+      		for (let commit of commits) {
+            	text += "*Pushed* " + "[" + commit.hash.toString().substring(0,6) + "]" + "(" + commit.links.html.href + ")" + ": " + commit.message;
+        	}
+          	date = commits[0].date;
         }
 
         return {
             content: {
-                attachments: [create_attachement(info.author, text, commits[0].date)],
+                attachments: [create_attachement(info.author, text, date)],
                 parseUrls: false,
                 color: ((config.color !== '') ? '#' + config.color.replace('#', '') : '#225159'),
             }
