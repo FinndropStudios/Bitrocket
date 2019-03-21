@@ -168,6 +168,7 @@ const processors = {
             sourcerepo: content.pullRequest.fromRef.repository.name,
             destrepo: content.pullRequest.toRef.repository.name,
             title: content.pullRequest.title,
+            reviewers: content.pullRequest.reviewers,
             description: content.pullRequest.description ? content.pullRequest.description : ''
         };
         const links = {
@@ -175,10 +176,20 @@ const processors = {
         };
         let text = '';
         text += '@' + author.username + ' opened a new pull request:\n';
-        text += '`' + pullRequest.sourcerepo + '/' + pullRequest.sourcebranch + '` => `' + pullRequest.destrepo + '/' + pullRequest.destinationbranch + '`\n\n';
+        text += '`' + pullRequest.sourcerepo + '/' + pullRequest.sourcebranch + '` => `' + pullRequest.destrepo + '/' + pullRequest.destinationbranch + '`\n';
         text += 'Title: (' + pullRequest.id + ') ' + pullRequest.title + '\n';
-        text += 'Description:\n';
-        text += pullRequest.description + '\n';
+        if (pullRequest.description.length > 0) {
+            text += 'Description:\n';
+            text += pullRequest.description + '\n';
+        }
+        if (pullRequest.reviewers.length > 0) {
+            let reviewers = [];
+            for (let reviewer of pullRequest.reviewers) {
+                reviewers.push('@' + reviewer.user.name);
+            };
+            reviewers.sort();
+            text += 'Approval required by: ' + reviewers.join(', ') + '\n';
+        }
         const attachment = {
             author_name: '#' + pullRequest.id + ' - ' + pullRequest.title,
             author_link: links.self
