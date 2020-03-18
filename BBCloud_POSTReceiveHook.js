@@ -141,7 +141,7 @@ const processors = {
 
     pullrequest_created(request) {
         const author = {
-            username: request.content.pullrequest.author.username,
+            username: request.content.pullrequest.author.nickname,
             displayname: request.content.pullrequest.author.display_name
         };
         const pullrequest = {
@@ -201,7 +201,7 @@ const processors = {
 
     pullrequest_rejected(request) {
         const author = {
-            username: request.content.pullrequest.author.username,
+            username: request.content.pullrequest.author.nickname,
             displayname: request.content.pullrequest.author.display_name
         };
         const pullrequest = {
@@ -236,7 +236,7 @@ const processors = {
 
     pullrequest_approved(request) {
         const author = {
-            username: request.content.approval.user.username,
+            username: request.content.approval.user.nickname,
             displayname: request.content.approval.user.display_name
         };
         const pullrequest = {
@@ -269,7 +269,7 @@ const processors = {
 
     pullrequest_unapproved(request) {
         const author = {
-            username: request.content.approval.user.username,
+            username: request.content.approval.user.nickname,
             displayname: request.content.approval.user.display_name
         };
         const pullrequest = {
@@ -302,7 +302,7 @@ const processors = {
 
     pullrequest_fulfilled(request) {
         const author = {
-            username: request.content.pullrequest.author.username,
+            username: request.content.pullrequest.author.nickname,
             displayname: request.content.pullrequest.author.display_name
         };
         const pullrequest = {
@@ -339,7 +339,7 @@ const processors = {
 
     pullrequest_updated(request) {
         const author = {
-            username: request.content.pullrequest.author.username,
+            username: request.content.pullrequest.author.nickname,
             displayname: request.content.pullrequest.author.display_name
         };
         const pullrequest = {
@@ -371,7 +371,7 @@ const processors = {
 
     pullrequest_comment_created(request) {
         const author = {
-            username: request.content.comment.user.username,
+            username: request.content.comment.user.nickname,
             displayname: request.content.comment.user.display_name
         };
         const comment = {
@@ -400,7 +400,7 @@ const processors = {
 
     pullrequest_comment_deleted(request) {
         const author = {
-            username: request.content.actor.username,
+            username: request.content.actor.nickname,
             displayname: request.content.actor.display_name
         };
         const comment = {
@@ -429,7 +429,7 @@ const processors = {
 
     pullrequest_comment_updated(request) {
         const author = {
-            username: request.content.comment.user.username,
+            username: request.content.comment.user.nickname,
             displayname: request.content.comment.user.display_name
         };
         const comment = {
@@ -458,7 +458,7 @@ const processors = {
 
     issue_comment_created(request) {
         const author = {
-            username: request.content.comment.user.username,
+            username: request.content.comment.user.nickname,
             displayname: request.content.comment.user.display_name
         };
         const comment = {
@@ -487,7 +487,7 @@ const processors = {
 
     issue_updated(request) {
         const author = {
-            username: request.content.actor.username,
+            username: request.content.actor.nickname,
             displayname: request.content.actor.display_name
         };
         const comment = {
@@ -518,7 +518,7 @@ const processors = {
 
     issue_created(request) {
         const author = {
-            username: request.content.issue.reporter.username,
+            username: request.content.issue.reporter.nickname,
             displayname: request.content.issue.reporter.display_name
         };
         const comment = {
